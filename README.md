@@ -1,47 +1,177 @@
-# Proyecto Base Implementando Clean Architecture
+# 🌸 Floristería App - Backend
 
-## Antes de Iniciar
+Este es el backend de la aplicación **Floristería App**, desarrollado para gestionar pedidos de una floristería y almacenar la información en la base de datos de manera estructurada y eficiente.
 
-Empezaremos por explicar los diferentes componentes del proyectos y partiremos de los componentes externos, continuando con los componentes core de negocio (dominio) y por último el inicio y configuración de la aplicación.
+## 🚀 Tecnologías utilizadas
+- **Java 21**
+- **Spring Boot**
+- **Gradle**
+- **Scaffold Clean Architecture (Bancolombia)**
 
-Lee el artículo [Clean Architecture — Aislando los detalles](https://medium.com/bancolombia-tech/clean-architecture-aislando-los-detalles-4f9530f35d7a)
+## 🏗️ Arquitectura
+El proyecto sigue la arquitectura **Clean Architecture** del scaffold de Bancolombia, organizada en capas:
 
-# Arquitectura
+- **Domain** → Modelos y lógica de negocio.
+- **Use Case** → Casos de uso y reglas de aplicación.
+- **Infrastructure** → Adaptadores externos (bases de datos, servicios, etc.).
+- **Applications** → Configuración y ensamblaje de dependencias.
+- **Deployment** → Configuración para despliegue (Docker, scripts, etc.).
 
-![Clean Architecture](https://miro.medium.com/max/1400/1*ZdlHz8B0-qu9Y-QO3AXR_w.png)
+👉 Para una explicación más detallada consulta el archivo [ARCHITECTURE.md](ARCHITECTURE.md).
 
-## Domain
+## ⚙️ Requisitos previos
+- [Java 21](https://openjdk.org/projects/jdk/21/)
+- [Gradle](https://gradle.org/) (incluye wrapper en el repo)
+- Base de datos (ejemplo: PostgreSQL, definida en `application.yaml`)
 
-Es el módulo más interno de la arquitectura, pertenece a la capa del dominio y encapsula la lógica y reglas del negocio mediante modelos y entidades del dominio.
+## ▶️ Ejecución del proyecto
+Clona este repositorio y ejecuta:
 
-## Usecases
+```
+bash
+# Clonar el repositorio
+git clone https://github.com/jsluna0919/floristeria-backend.git
+cd floristeria-backend
 
-Este módulo gradle perteneciente a la capa del dominio, implementa los casos de uso del sistema, define lógica de aplicación y reacciona a las invocaciones desde el módulo de entry points, orquestando los flujos hacia el módulo de entities.
+# Construir el proyecto
+./gradlew build
 
-## Infrastructure
+# Ejecutar el backend
+./gradlew bootRun
+```
 
-### Helpers
+El backend se levantará por defecto en:
+👉 http://localhost:8080
 
-En el apartado de helpers tendremos utilidades generales para los Driven Adapters y Entry Points.
+🧪 Tests
 
-Estas utilidades no están arraigadas a objetos concretos, se realiza el uso de generics para modelar comportamientos
-genéricos de los diferentes objetos de persistencia que puedan existir, este tipo de implementaciones se realizan
-basadas en el patrón de diseño [Unit of Work y Repository](https://medium.com/@krzychukosobudzki/repository-design-pattern-bc490b256006)
+Para correr las pruebas:
 
-Estas clases no puede existir solas y debe heredarse su compartimiento en los **Driven Adapters**
+```
+./gradlew test
+```
 
-### Driven Adapters
+📡 Endpoints principales
 
-Los driven adapter representan implementaciones externas a nuestro sistema, como lo son conexiones a servicios rest,
-soap, bases de datos, lectura de archivos planos, y en concreto cualquier origen y fuente de datos con la que debamos
-interactuar.
+📦 Pedidos
 
-### Entry Points
+```
+h
+GET /pedidos → Lista todos los pedidos.
+GET /pedidos/{id} → Obtiene un pedido por su ID.
+POST /pedidos → Crea un nuevo pedido.
+PUT /pedidos/{id} → Actualiza un pedido existente.
+DELETE /pedidos/{id} → Elimina un pedido por su ID.
+```
 
-Los entry points representan los puntos de entrada de la aplicación o el inicio de los flujos de negocio.
+Ejemplo JSON:
 
-## Application
+```
+json
+{
+  "cliente": {
+    "tipoDocumento": "C.C",
+    "numeroDocumento": "32104176",
+    "nombre": "Lilliana Marcela",
+    "apellido": "Tilano Tavera",
+    "telefono": "3152508237",
+    "email": "admonfloristeri@gmail.com",
+    "ciudad": "Medellín",
+    "direccion": "cra 71 # 44 - 35"
+  },
+  "destinatario": {
+    "nombre": "Juan Santiago Luna",
+    "telefono": "3158201429",
+    "ciudad": "Med",
+    "direccion": "cra 71 # 44 - 35 "
+  },
+  "arreglo": {
+    "nombre": "Cumpleanios",
+    "descripcion": "Bouquete con torta y globos",
+    "anexos": "Botella de vino ",
+    "precio": 120000,
+    "imagen": "https://floristeriamistad.com/producto/5-kit-cumpleanos-premium-bouquet-torta-globo",
+    "mensaje": "Feliz cumple"
+  },
+  "fechaEntrega": "17 de agosto 2025"
+}
+```
 
-Este módulo es el más externo de la arquitectura, es el encargado de ensamblar los distintos módulos, resolver las dependencias y crear los beans de los casos de use (UseCases) de forma automática, inyectando en éstos instancias concretas de las dependencias declaradas. Además inicia la aplicación (es el único módulo del proyecto donde encontraremos la función “public static void main(String[] args)”.
+👤 Clientes
+```
+h
+GET /clientes → Lista todos los clientes.
+GET /clientes/{id} → Obtiene un cliente por su ID.
+POST /clientes → Registra un nuevo cliente.
+PUT /clientes/{id} → Actualiza un cliente existente.
+DELETE /clientes/{id} → Elimina un cliente por su ID.
+DELETE /clientes?tipoDocumento={tipo}&numeroDocumento={numero}  → Elimina un cliente por tipo y número de documento
+```
 
-**Los beans de los casos de uso se disponibilizan automaticamente gracias a un '@ComponentScan' ubicado en esta capa.**
+Ejemplo JSON:
+
+```
+json
+{
+  "tipoDocumento": "c.c",
+  "numeroDocumento": "1001360953",
+  "nombre": "Caglos Albegto",
+  "apellido": "Jesus Jediondo",
+  "telefono": "1236544",
+  "email": "caglos@gmail.com",
+  "ciudad": "medellin",
+  "direccion": "calle 49aa # tata"
+}
+```
+
+🌺 Arreglos Florales
+
+```
+h
+GET /arreglos → Lista todos los arreglos florales.
+GET /arreglos/{id} → Obtiene un arreglo floral por su ID.
+POST /arreglos → Crea un nuevo arreglo floral.
+PUT /arreglos/{id} → Actualiza un arreglo floral existente.
+DELETE /arreglos/{id} → Elimina un arreglo floral por su ID.
+```
+
+Ejemplo JSON:
+
+```
+json
+{
+  "nombre": "Ref 13 – Arreglo primaveral en caja decorativa",
+  "descripcion": "Caja decorativa con 20 flores y follajes",
+  "precio": 120000,
+  "imagen": "https://floristeriamistad.com/producto/ref-13-arreglo-primaveral-en-caja-decorativa/"
+}
+```
+
+🎁 Destinatarios
+
+```
+h
+GET /destinatarios → Lista los destinatarios.
+GET /destinatarios/{id} → Obtiene un destinatario por su ID.
+POST /destinatarios → Registra un destinatario.
+PUT /destinatarios/{id} → Actualiza un destinatario existente.
+DELETE /destinatarios/{id} → Elimina un destinatario por su ID.
+DELETE /destinatarios?nombre={nombre}&telefono={telefono} → Elimina un destinatario por nombre y teléfono
+```
+Ejemplo JSON:
+
+```
+json
+{
+  "nombre": "Sofia Rivera",
+  "telefono": "254565325",
+  "ciudad": "Bogota",
+  "direccion": "calle 3 - 25 "
+}
+```
+
+✨ Autor
+
+Juan Santiago Luna Tilano
+
+📌 Proyecto académico/personal desarrollado con enfoque en buenas prácticas de arquitectura de software.
