@@ -9,6 +9,9 @@ import co.floristeria.model.destinatario.gateways.DestinatarioRepository;
 import co.floristeria.model.pedido.EstadoPedido;
 import co.floristeria.model.pedido.Pedido;
 import co.floristeria.model.pedido.gateways.PedidoRepository;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -53,10 +56,7 @@ public class PedidoUseCase {
                         .build()
         );
 
-        var destinatario = destinatarioRepository.findByNombreAndTelefono(
-                pedido.getDestinatario().getNombre(),
-                pedido.getDestinatario().getTelfono()
-        ).orElseGet(()-> destinatarioRepository.save(
+        var destinatario = destinatarioRepository.save(
                 Destinatario.builder()
                         .nombre(pedido.getDestinatario().getNombre())
                         .telfono(pedido.getDestinatario().getTelfono())
@@ -64,7 +64,7 @@ public class PedidoUseCase {
                         .direccion(pedido.getDestinatario().getDireccion())
                         .fechaCreacion(LocalDateTime.now())
                         .build()
-        ));
+        );
 
         var pedidoCompleto = pedidoRepository.save(
                 Pedido.builder()

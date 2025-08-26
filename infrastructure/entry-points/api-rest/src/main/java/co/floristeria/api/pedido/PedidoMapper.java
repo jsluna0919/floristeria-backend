@@ -8,7 +8,7 @@ import co.floristeria.model.pedido.Pedido;
 
 public class PedidoMapper {
 
-    public static PedidoDTO pedidoDTO(Pedido pedido) {
+    public static PedidoDTO toPedidoDTO(Pedido pedido) {
         return PedidoDTO.builder()
                 .id(pedido.getId())
                 .cliente(ClienteMapper.toClienteDTO(pedido.getCliente()))
@@ -18,6 +18,17 @@ public class PedidoMapper {
                 .estado(pedido.getEstado())
                 .fechaCreacion(pedido.getFechaCreacion())
                 .fechaModificacion(pedido.getFechaModificacion())
+                .build();
+    }
+
+    public static Pedido toCrearPedido(PedidoDTO pedidoDTO) {
+        return Pedido.builder()
+                .cliente(ClienteMapper.toCliente(pedidoDTO.getCliente()))
+                .arreglofloral(ArregloFloralMapper.toArreglofloral(pedidoDTO.getArreglo()))
+                .destinatario(DestinatarioMapper.toDestinatario(pedidoDTO.getDestinatario()))
+                .fechaEntrega(pedidoDTO.getFechaEntrega())
+                .estado(pedidoDTO.getEstado())
+
                 .build();
     }
 

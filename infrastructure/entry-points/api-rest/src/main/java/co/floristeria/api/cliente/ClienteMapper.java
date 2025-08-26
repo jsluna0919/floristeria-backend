@@ -9,6 +9,19 @@ import java.util.List;
 
 public class ClienteMapper {
 
+    public static Cliente toCliente (ClienteDTO dto) {
+        return Cliente.builder()
+                .tipoDocumento(dto.getTipoDocumento())
+                .numeroDocumento(dto.getNumeroDocumento())
+                .nombre(dto.getNombre())
+                .apellido(dto.getApellido())
+                .telefono(dto.getTelefono())
+                .email(dto.getEmail())
+                .ciudad(dto.getCiudad())
+                .direccion(dto.getDireccion())
+
+                .build();
+    }
     public static ClienteDTO toClienteDTO(Cliente cliente){
         return ClienteDTO.builder()
                 .tipoDocumento(cliente.getTipoDocumento())

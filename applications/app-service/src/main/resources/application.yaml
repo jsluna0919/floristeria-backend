@@ -6,7 +6,7 @@ spring:
   profiles:
     active: dev
   jpa:
-    databasePlatform: "org.hibernate.dialect.H2Dialect"
+    databasePlatform: "org.hibernate.dialect.PostgreSQLDialect"
     properties:
       hibernate:
         jdbc:

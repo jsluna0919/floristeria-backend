@@ -9,6 +9,14 @@ import java.util.List;
 
 public class DestinatarioMapper {
 
+    public static Destinatario toDestinatario(DestinatarioDTO dto){
+        return Destinatario.builder()
+                .nombre(dto.getNombre())
+                .telfono(dto.getTelfono())
+                .ciudad(dto.getCiudad())
+                .direccion(dto.getDireccion())
+                .build();
+    }
     public static DestinatarioDTO toDestinatarioDTO(Destinatario destinatario) {
         return DestinatarioDTO.builder()
                 .nombre(destinatario.getNombre())
