@@ -1,14 +1,14 @@
-package co.floristeria.model.arreglofloral;
-import lombok.*;
+package co.floristeria.api.arregloFloral;
+
+import lombok.Builder;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
-public class Arreglofloral {
+@Builder
+public class ArregloFloralDTO {
 
     private Long id;
     private String nombre;

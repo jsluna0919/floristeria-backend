@@ -1,19 +1,15 @@
-package co.floristeria.model.cliente;
-import co.floristeria.model.pedido.Pedido;
+package co.floristeria.api.cliente;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-@Builder(toBuilder = true)
-public class Cliente {
+@NoArgsConstructor
+public class ClienteDTO {
 
     private Long id;
     private String tipoDocumento;
@@ -24,7 +20,4 @@ public class Cliente {
     private String email;
     private String ciudad;
     private String direccion;
-    private List<Pedido> pedidos;
-    private LocalDateTime fechaCreacion;
-    private LocalDateTime fechaModificacion;
 }

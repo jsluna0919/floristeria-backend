@@ -1,0 +1,36 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate   # 👈 no toca tablas en prod, solo valida
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI}
+          client-id: ${JWT_CLIENT_ID}
+
+cors:
+  allowed-origins:
+    - "https://floristeria-front.com"
+
+logging:
+  level:
+    root: WARN
+    co.floristeria: INFO
+
+#TODO: Revisar que se debe mejorar, pendiente variables de entorno en el servidor

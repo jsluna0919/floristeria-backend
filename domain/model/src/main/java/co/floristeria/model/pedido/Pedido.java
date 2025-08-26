@@ -2,17 +2,12 @@ package co.floristeria.model.pedido;
 import co.floristeria.model.arreglofloral.Arreglofloral;
 import co.floristeria.model.cliente.Cliente;
 import co.floristeria.model.destinatario.Destinatario;
-import lombok.Builder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-//import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-//@NoArgsConstructor
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Pedido {
